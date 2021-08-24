@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {baseUrl} from '../utils/variables';
+import {doFetch} from '../utils/http';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
@@ -13,21 +14,28 @@ const useMedia = () => {
 
   const loadMedia = async () => {
     try {
-      const response = await fetch(baseUrl + 'media');
-      const mediaIlmanThumbnailia = await response.json();
+      const mediaIlmanThumbnailia = await doFetch(baseUrl + 'media');
       const kaikkiTiedot = mediaIlmanThumbnailia.map(async (media) => {
-        return await loadSingleMedia(media.file_id);
+        try {
+          return await loadSingleMedia(media.file_id);
+        } catch (e) {
+          return {};
+        }
       });
       return Promise.all(kaikkiTiedot);
     } catch (e) {
-      console.log(e.message());
+      console.log(e.message);
     }
   };
 
   const loadSingleMedia = async (id) => {
-    const response = await fetch(baseUrl + 'media/' + id);
-    const tiedosto = await response.json();
-    return tiedosto;
+    try {
+      const tiedosto = await doFetch(baseUrl + 'media/' + id);
+      return tiedosto;
+    } catch (e) {
+      console.log('loadSingleMedia', e.message);
+      return {};
+    }
   };
 
   return {mediaArray, loadMedia, loadSingleMedia};
