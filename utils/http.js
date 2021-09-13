@@ -4,8 +4,8 @@ const doFetch = async (url, options) => {
   if (json.error) {
     throw new Error(json.message + ': ' + json.error);
   } else if (!response.ok) {
-    throw new Error('fecth failed');
-  } else{
+    throw new Error('fetch failed');
+  } else {
     return json;
   }
 };
