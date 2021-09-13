@@ -45,4 +45,4 @@ const Navigator = () => {
   );
 };
 
-export default Navigator
+export default Navigator;

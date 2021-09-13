@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigator from './navigators/Navigator';
 import {MainProvider} from './contexts/MainContext';
+import Navigator from './navigators/Navigator';
 
 const App = () => {
   return (
