@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
 import React, {useState, useEffect, useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, Platform, ActivityIndicator, Alert} from 'react-native';
+import {View, Platform, Alert} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {Button, Image} from 'react-native-elements';
 import useUploadForm from '../hooks/UploadHooks';
@@ -13,17 +12,27 @@ import {MainContext} from '../contexts/MainContext';
 
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(require('../assets/icon.png'));
-  const {inputs, handleInputChange} = useUploadForm();
+  const [filetype, setFiletype] = useState('');
+  const {inputs, handleInputChange, setInputs} = useUploadForm();
   const {uploadMedia, loading} = useMedia();
   const {addTag} = useTag();
   const {update, setUpdate} = useContext(MainContext);
+
+  const resetForm = () => {
+    setInputs({
+      title: '',
+      description: '',
+    });
+    setImage(require('../assets/icon.png'));
+  };
 
   const doUpload = async () => {
     const filename = image.uri.split('/').pop();
     // Infer the type of the image
     const match = /\.(\w+)$/.exec(filename);
-    let type = match ? `image/${match[1]}` : `image`;
+    let type = match ? `${filetype}/${match[1]}` : filetype;
     if (type === 'image/jpg') type = 'image/jpeg';
+    console.log('doUpload mimetype:', type);
     const formData = new FormData();
     formData.append('file', {uri: image.uri, name: filename, type});
     formData.append('title', inputs.title);
@@ -44,6 +53,7 @@ const Upload = ({navigation}) => {
               text: 'Ok',
               onPress: () => {
                 setUpdate(update + 1);
+                resetForm();
                 navigation.navigate('Home');
               },
             },
@@ -80,6 +90,7 @@ const Upload = ({navigation}) => {
 
     if (!result.cancelled) {
       setImage({uri: result.uri});
+      setFiletype(result.type);
     }
   };
 
@@ -92,8 +103,9 @@ const Upload = ({navigation}) => {
         handleSubmit={doUpload}
         handleInputChange={handleInputChange}
         loading={loading}
+        inputs={inputs}
       />
-      {loading && <ActivityIndicator />}
+      <Button title="Reset form" onPress={resetForm} />
     </View>
   );
 };

@@ -3,10 +3,10 @@ import {MainContext} from '../contexts/MainContext';
 import {doFetch} from '../utils/http';
 import {appID, baseUrl} from '../utils/variables';
 
-const useMedia = () => {
+const useMedia = (ownFiles) => {
   const [mediaArray, setMediaArray] = useState([]);
   const [loading, setLoading] = useState(false);
-  const {update} = useContext(MainContext);
+  const {update, user} = useContext(MainContext);
 
   useEffect(() => {
     // https://scriptverse.academy/tutorials/js-self-invoking-functions.html
@@ -18,7 +18,14 @@ const useMedia = () => {
 
   const loadMedia = async () => {
     try {
-      const mediaIlmanThumbnailia = await useTag().getFilesByTag(appID);
+      let mediaIlmanThumbnailia = await useTag().getFilesByTag(appID);
+
+      if (ownFiles) {
+        mediaIlmanThumbnailia = mediaIlmanThumbnailia.filter(
+          (item) => item.user_id === user.user_id
+        );
+      }
+
       const kaikkiTiedot = mediaIlmanThumbnailia.map(async (media) => {
         return await loadSingleMedia(media.file_id);
       });
@@ -58,12 +65,54 @@ const useMedia = () => {
     }
   };
 
+  const modifyMedia = async (data, token, id) => {
+    try {
+      setLoading(true);
+      const options = {
+        method: 'PUT',
+        headers: {
+          'x-access-token': token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      };
+      const result = await doFetch(baseUrl + 'media/' + id, options);
+      return result;
+    } catch (e) {
+      console.log('modifyMedia error', e);
+      throw new Error(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteMedia = async (id, token) => {
+    try {
+      setLoading(true);
+      const options = {
+        method: 'DELETE',
+        headers: {
+          'x-access-token': token,
+        },
+      };
+      const result = await doFetch(baseUrl + 'media/' + id, options);
+      return result;
+    } catch (e) {
+      console.log('deleteMedia error', e);
+      throw new Error(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     mediaArray,
     loading,
     loadMedia,
     loadSingleMedia,
     uploadMedia,
+    deleteMedia,
+    modifyMedia,
   };
 };
 
@@ -99,6 +148,19 @@ const useUser = () => {
     }
   };
 
+  const getUserInfo = async (userid, token) => {
+    const options = {
+      method: 'GET',
+      headers: {'x-access-token': token},
+    };
+    try {
+      const userInfo = await doFetch(baseUrl + 'users/' + userid, options);
+      return userInfo;
+    } catch (error) {
+      console.log('checkToken error', error);
+    }
+  };
+
   const checkUsernameAvailable = async (username) => {
     try {
       const usernameInfo = await doFetch(
@@ -126,7 +188,7 @@ const useUser = () => {
     }
   };
 
-  return {checkToken, register, checkUsernameAvailable};
+  return {checkToken, getUserInfo, register, checkUsernameAvailable};
 };
 
 const useTag = () => {
@@ -163,4 +225,29 @@ const useTag = () => {
   return {getFilesByTag, addTag};
 };
 
-export {useMedia, useLogin, useUser, useTag};
+const useFavourites = () => {
+  const addFavourite = async (fileId, token) => {
+    // post /favourites
+  };
+
+  const deleteFavourite = async (fileId, token) => {
+    // DELETE /favourites/file/:id
+  };
+
+  const getFavouritesByFileId = async (fileId) => {
+    // get /favourites/file/:id
+  };
+
+  const getMyFavourites = (token) => {
+    // GET /favourites
+  };
+
+  return {
+    addFavourite,
+    deleteFavourite,
+    getFavouritesByFileId,
+    getMyFavourites,
+  };
+};
+
+export {useMedia, useLogin, useUser, useTag, useFavourites};
