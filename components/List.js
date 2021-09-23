@@ -1,25 +1,34 @@
 import React from 'react';
-import {FlatList} from 'react-native';
-import {useMedia} from '../hooks/ApiHooks';
-import ListItem from './ListItem';
 import PropTypes from 'prop-types';
+import {uploadsUrl} from '../utils/variables';
+import {Avatar, ListItem as RNEListItem} from 'react-native-elements';
 
-const List = ({navigation}) => {
-  const {mediaArray} = useMedia();
-  // console.log('List: mediaArray', mediaArray);
+const ListItem = ({singleMedia, navigation}) => {
+  // console.log('singleMedia', singleMedia);
   return (
-    <FlatList
-      data={mediaArray.reverse()}
-      renderItem={({item}) => (
-        <ListItem singleMedia={item} navigation={navigation} />
-      )}
-      keyExtractor={(item, index) => index.toString()}
-    />
+    <RNEListItem
+      bottomDivider
+      onPress={() => {
+        navigation.navigate('Single', singleMedia);
+      }}
+    >
+      <Avatar
+        size="large"
+        square
+        source={{uri: uploadsUrl + singleMedia.thumbnails.w160}}
+      ></Avatar>
+      <RNEListItem.Content>
+        <RNEListItem.Title h4>{singleMedia.title}</RNEListItem.Title>
+        <RNEListItem.Subtitle>{singleMedia.description}</RNEListItem.Subtitle>
+      </RNEListItem.Content>
+      <RNEListItem.Chevron />
+    </RNEListItem>
   );
 };
 
-List.propTypes = {
+ListItem.propTypes = {
+  singleMedia: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
 };
 
-export default List;
+export default ListItem;
