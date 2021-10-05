@@ -22,11 +22,11 @@ const Home = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#831a1a',
   },
   droidSafeArea: {
     flex: 1,
-    backgroundColor: '#ccc',
+    backgroundColor: '#831a1a',
     paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
 });
