@@ -1,5 +1,5 @@
 export const defaultTheme = {
-  backgroundColor: '#a12c15',
+  backgroundColor: '#330e69',
   textColor: '#202124',
   buttonbackgroundColor: 'red',
   nav: {

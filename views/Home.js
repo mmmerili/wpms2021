@@ -6,6 +6,7 @@ import {
   StatusBar,
   View,
   StyleSheet,
+  Card,
   Text,
 } from 'react-native';
 import List from '../components/List';
@@ -19,10 +20,11 @@ const Home = ({navigation}) => {
     >
       <StatusBar style="auto" />
       <View style={[{backgroundColor: theme.backgroundColor}]}>
-        <List navigation={navigation} />
-        <Text style={[styles.text, {color: theme.textColor}]}>
+        <Text style={[styles.text, {color: theme.textColor},]}>
           Custon bottom tab navigation!
         </Text>
+
+        <List navigation={navigation}/>
       </View>
     </SafeAreaView>
   );

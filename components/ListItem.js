@@ -27,7 +27,7 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
         >
           <RNEListItem
             bottomDivider
-            containerStyle={{backgroundColor: '#d19836'}}
+            containerStyle={{backgroundColor: 'rgba(38, 23, 169, 0.7)'}}
             // onPress={() => {
             // navigation.navigate('Single', singleMedia);
             // }}
@@ -38,23 +38,24 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
               source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
             ></Avatar>
             <RNEListItem.Content>
-              <RNEListItem.Title  style={styles.title} h4>
+              <RNEListItem.Title style={styles.title} h4>
                 {singleMedia.title}
               </RNEListItem.Title>
               <RNEListItem.Subtitle>
                 {singleMedia.description}
               </RNEListItem.Subtitle>
               <Rating
-                backgroundColor="#d19836"
+                backgroundColor="rgba(76, 20, 9, 0.27)"
                 type="custom"
-                ratingColor="black"
+                ratingColor="purple"
                 ratingCount={3}
                 imageSize={40}
                 showRating
                 // onFinishRating={this.ratingCompleted}
                 fractions="{1}"
                 startingValue="{1}"
-                tintColor="#d19836"
+                tintColor="rgba(104, 93, 208, 0.59)"
+                color="white"
               />
               {showButtons && (
                 <>
@@ -95,10 +96,11 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
 
 const styles = StyleSheet.create({
   listitembackground: {
-    backgroundColor: 'rgba(245,210,135,0.7)',
+    backgroundColor: 'rgba(104, 93, 208, 0.59)',
   },
   title: {
     fontSize: 100,
+    color: 'white',
   },
 });
 

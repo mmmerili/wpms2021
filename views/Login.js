@@ -44,7 +44,7 @@ const Login = ({navigation}) => {
       style={[styles.container, {backgroundColor: theme.backgroundColor}]}
     >
       <ImageBackground
-        source={require('../assets/splash.png')}
+        source={require('../assets/splash.jpg')}
         style={styles.image}
       >
         {registerFormToggle ? (
@@ -87,6 +87,24 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+  },
+  selectMediaButton: {
+    marginRight: 25,
+    marginLeft: 25,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: '#d19836',
+    borderRadius: 15,
+    borderWidth: 3,
+    borderColor: '#edcf9d',
+  },
+  selectMediaText: {
+    color: '#fff',
+    textAlign: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 20,
   },
 });
 

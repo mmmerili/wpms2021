@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
 import React, {useContext} from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import Home from '../views/Home';
 import Profile from '../views/Profile';
@@ -13,13 +13,17 @@ import {Icon} from 'react-native-elements';
 import Upload from '../views/Upload';
 import MyFiles from '../views/MyFiles';
 import Modify from '../views/Modify';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+// import {Text} from 'react-native-elements';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const TabScreen = () => {
   return (
     <Tab.Navigator
+      size="xlarge"
+      barStyle={{backgroundColor: 'rgb(104, 93, 208)'}}
       screenOptions={({route}) => ({
         tabBarIcon: ({color, size}) => {
           let iconName = '';
@@ -28,7 +32,7 @@ const TabScreen = () => {
               iconName = 'liquor';
               break;
             case 'Profile':
-              iconName = 'perm-identity';
+              iconName = 'person-outline';
               break;
             case 'Upload':
               iconName = 'file-upload';
@@ -37,8 +41,8 @@ const TabScreen = () => {
           return (
             <Icon
               name={iconName}
-              size={size}
-              color={'#bd7722'}
+              size={35}
+              color={'rgb(104, 93, 208)'}
               reverse={true}
               raised={true}
             />
