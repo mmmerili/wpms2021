@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Input} from 'react-native-elements';
+import {Button, Input, Text} from 'react-native-elements';
+import {TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const UploadForm = ({
   title,
@@ -23,11 +25,38 @@ const UploadForm = ({
         onChangeText={(txt) => handleInputChange('description', txt)}
         value={inputs.description}
       />
-
-      <Button raised title={title} onPress={handleSubmit} loading={loading} />
+      <TouchableOpacity
+        style={styles.selectMediaButton}
+        underlayColor="#fff"
+        onPress={handleSubmit}
+        loading={loading}
+      >
+        <Text style={styles.selectMediaText}>Upload</Text>
+      </TouchableOpacity>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  selectMediaButton: {
+    marginRight: 25,
+    marginLeft: 25,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: '#d19836',
+    borderRadius: 15,
+    borderWidth: 3,
+    borderColor: '#edcf9d',
+  },
+  selectMediaText: {
+    color: '#fff',
+    textAlign: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 20,
+  },
+});
 
 UploadForm.propTypes = {
   title: PropTypes.string.isRequired,

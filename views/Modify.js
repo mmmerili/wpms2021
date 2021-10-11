@@ -6,8 +6,11 @@ import useUploadForm from '../hooks/UploadHooks';
 import {useMedia} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
+import {useTheme} from '../contexts/ThemeProvider';
+import {StyleSheet} from 'react-native';
 
 const Modify = ({route}) => {
+  const {theme} = useTheme();
   const navigation = route.params.navigation;
   // const [image, setImage] = useState(require('../assets/icon.png'));
   const {inputs, handleInputChange, setInputs} = useUploadForm();
@@ -53,7 +56,9 @@ const Modify = ({route}) => {
   };
 
   return (
-    <View>
+    <View
+      style={[StyleSheet.container, {backgroundColor: theme.backgroundColor}]}
+    >
       <UploadForm
         title="Upload"
         handleSubmit={doModify}

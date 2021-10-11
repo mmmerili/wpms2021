@@ -25,16 +25,24 @@ const TabScreen = () => {
           let iconName = '';
           switch (route.name) {
             case 'Home':
-              iconName = 'home';
+              iconName = 'liquor';
               break;
             case 'Profile':
-              iconName = 'account-box';
+              iconName = 'perm-identity';
               break;
             case 'Upload':
-              iconName = 'account-box';
+              iconName = 'file-upload';
               break;
           }
-          return <Icon name={iconName} size={size} color={color} />;
+          return (
+            <Icon
+              name={iconName}
+              size={size}
+              color={'#bd7722'}
+              reverse={true}
+              raised={true}
+            />
+          );
         },
       })}
     >

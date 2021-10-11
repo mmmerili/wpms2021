@@ -9,8 +9,10 @@ import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {ImageBackground} from 'react-native';
 import {Card, ListItem, Text} from 'react-native-elements';
+import {useTheme} from '../contexts/ThemeProvider';
 
 const Login = ({navigation}) => {
+  const {theme} = useTheme();
   const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {checkToken} = useUser();
   const [registerFormToggle, setRegisterFormToggle] = useState(false);
@@ -39,7 +41,7 @@ const Login = ({navigation}) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
+      style={[styles.container, {backgroundColor: theme.backgroundColor}]}
     >
       <ImageBackground
         source={require('../assets/splash.png')}
@@ -80,7 +82,6 @@ const Login = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   image: {
     flex: 1,

@@ -1,12 +1,15 @@
 import React from 'react';
 import {MainProvider} from './contexts/MainContext';
 import Navigator from './navigators/Navigator';
+import ThemeProvider from './contexts/ThemeProvider';
 
 const App = () => {
   return (
-    <MainProvider>
-      <Navigator />
-    </MainProvider>
+    <ThemeProvider>
+      <MainProvider>
+        <Navigator />
+      </MainProvider>
+    </ThemeProvider>
   );
 };
 

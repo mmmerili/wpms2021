@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, Platform, Alert} from 'react-native';
+import {View, Platform, Alert, StyleSheet} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {Button, Image} from 'react-native-elements';
 import useUploadForm from '../hooks/UploadHooks';
@@ -9,8 +9,13 @@ import {useMedia, useTag} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {appID} from '../utils/variables';
 import {MainContext} from '../contexts/MainContext';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useTheme} from '../contexts/ThemeProvider';
+import {TouchableOpacity} from 'react-native';
+import {Text} from 'react-native';
 
 const Upload = ({navigation}) => {
+  const {theme} = useTheme();
   const [image, setImage] = useState(require('../assets/icon.png'));
   const [filetype, setFiletype] = useState('');
   const {inputs, handleInputChange, setInputs} = useUploadForm();
@@ -95,9 +100,15 @@ const Upload = ({navigation}) => {
   };
 
   return (
-    <View>
-      <Image source={image} style={{width: '100%', height: 200}} />
-      <Button title="Select media" onPress={pickImage} />
+    <View style={{backgroundColor: theme.backgroundColor}}>
+      <Image source={image} style={{width: '100%', height: 300}} />
+      <TouchableOpacity
+        onPress={pickImage}
+        style={styles.selectMediaButton}
+        underlayColor="#fff"
+      >
+        <Text style={styles.selectMediaText}>Select media</Text>
+      </TouchableOpacity>
       <UploadForm
         title="Upload"
         handleSubmit={doUpload}
@@ -105,10 +116,37 @@ const Upload = ({navigation}) => {
         loading={loading}
         inputs={inputs}
       />
-      <Button title="Reset form" onPress={resetForm} />
+      <TouchableOpacity
+        onPress={resetForm}
+        style={styles.selectMediaButton}
+        underlayColor="#fff"
+      >
+        <Text style={styles.selectMediaText}>Reset</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  selectMediaButton: {
+    marginRight: 25,
+    marginLeft: 25,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: '#d19836',
+    borderRadius: 15,
+    borderWidth: 3,
+    borderColor: '#edcf9d',
+  },
+  selectMediaText: {
+    color: '#fff',
+    textAlign: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 20,
+  },
+});
 
 Upload.propTypes = {
   navigation: PropTypes.object.isRequired,

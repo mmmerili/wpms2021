@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {
   Platform,
@@ -6,27 +6,31 @@ import {
   StatusBar,
   View,
   StyleSheet,
+  Text,
 } from 'react-native';
 import List from '../components/List';
+import {useTheme} from '../contexts/ThemeProvider';
 
 const Home = ({navigation}) => {
+  const {theme} = useTheme();
   return (
-    <SafeAreaView style={styles.droidSafeArea}>
-      <View style={styles.container}>
-        <List navigation={navigation} />
-      </View>
+    <SafeAreaView
+      style={[styles.droidSafeArea, {backgroundColor: theme.backgroundColor}]}
+    >
       <StatusBar style="auto" />
+      <View style={[{backgroundColor: theme.backgroundColor}]}>
+        <List navigation={navigation} />
+        <Text style={[styles.text, {color: theme.textColor}]}>
+          Custon bottom tab navigation!
+        </Text>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#831a1a',
-  },
   droidSafeArea: {
     flex: 1,
-    backgroundColor: '#831a1a',
     paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
 });
