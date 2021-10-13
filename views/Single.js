@@ -22,6 +22,7 @@ const Single = ({route}) => {
     const token = await AsyncStorage.getItem('userToken');
     setOwnerInfo(await getUserInfo(params.user_id, token));
   };
+
   const getLikes = async () => {
     // TODO: use api hooks to get favourites
     // setLikes()
@@ -32,7 +33,6 @@ const Single = ({route}) => {
     getOwnerInfo();
     getLikes();
   }, []);
-
 
   return (
     <View style={{backgroundColor: theme.backgroundColor}}>
@@ -75,7 +75,7 @@ const Single = ({route}) => {
         <Card.Divider />
         <Text style={styles.description}>{params.description}</Text>
         <ListItem>
-          <Text>{ownerInfo.username}</Text>
+          <Text>{ownerInfo.username}'s post</Text>
         </ListItem>
         <ListItem>
           {/* TODO: show like or dislike button depending on the current like status,
@@ -101,7 +101,6 @@ const Single = ({route}) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   image: {

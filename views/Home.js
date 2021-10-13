@@ -6,11 +6,12 @@ import {
   StatusBar,
   View,
   StyleSheet,
-  Card,
   Text,
 } from 'react-native';
 import List from '../components/List';
 import {useTheme} from '../contexts/ThemeProvider';
+import Search from './Search';
+import SearchBar from 'react-native-elements/dist/searchbar/SearchBar-ios';
 
 const Home = ({navigation}) => {
   const {theme} = useTheme();
@@ -19,12 +20,26 @@ const Home = ({navigation}) => {
       style={[styles.droidSafeArea, {backgroundColor: theme.backgroundColor}]}
     >
       <StatusBar style="auto" />
+      <Search
+        name="Search"
+        component={Search}
+        options={{
+          headerShown: true,
+        }}
+      ></Search>
+      <Text
+        style={{
+          fontSize: 25,
+          color: 'white',
+          margin: 20,
+          alignSelf: 'center',
+          fontFamily: 'Baskerville-SemiBold',
+        }}
+      >
+        Post here your favorite drinks and experiences!
+      </Text>
       <View style={[{backgroundColor: theme.backgroundColor}]}>
-        <Text style={[styles.text, {color: theme.textColor},]}>
-          Custon bottom tab navigation!
-        </Text>
-
-        <List navigation={navigation}/>
+        <List navigation={navigation} />
       </View>
     </SafeAreaView>
   );

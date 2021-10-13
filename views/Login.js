@@ -8,8 +8,10 @@ import {useUser} from '../hooks/ApiHooks';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {ImageBackground} from 'react-native';
-import {Card, ListItem, Text} from 'react-native-elements';
+import {Card, ListItem, Text, CardItem, View} from 'react-native-elements';
 import {useTheme} from '../contexts/ThemeProvider';
+import {TouchableOpacity} from 'react-native';
+import {color} from 'react-native-elements/dist/helpers';
 
 const Login = ({navigation}) => {
   const {theme} = useTheme();
@@ -42,38 +44,42 @@ const Login = ({navigation}) => {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={[styles.container, {backgroundColor: theme.backgroundColor}]}
+      // containerStyle={{backgroundColor: 'rgba(38, 23, 169, 0.7)'}}
     >
       <ImageBackground
         source={require('../assets/splash.jpg')}
         style={styles.image}
       >
         {registerFormToggle ? (
-          <Card>
-            <Card.Divider />
-            <Card.Title h4>Register</Card.Title>
+          <Card containerStyle={{backgroundColor: 'rgba(83, 99, 236, 0.86)'}}>
+            <Card.Title style={{fontWeight: 'bold', color: 'white'}} h4>
+              Register
+            </Card.Title>
             <RegisterForm navigation={navigation} />
           </Card>
         ) : (
-          <Card>
-            <Card.Title h4>Login</Card.Title>
+          <Card containerStyle={{backgroundColor: 'rgba(83, 99, 236, 0.86)'}}>
+            <Card.Title style={{fontWeight: 'bold', color: 'white'}} h4>
+              Login
+            </Card.Title>
             <LoginForm navigation={navigation} />
           </Card>
         )}
         {/* TODO: add link/button & event handler to change state: setRegformtoggle(!regformtoggle);  */}
-        <ListItem
+        <TouchableOpacity
+          style={styles.selectMediaButton}
+          underlayColor="#fff"
           onPress={() => {
             setRegisterFormToggle(!registerFormToggle);
           }}
         >
-          <ListItem.Content>
-            <Text style={styles.text}>
-              {registerFormToggle
-                ? 'Already registered? Login here'
-                : 'No account? Register here.'}
-            </Text>
-          </ListItem.Content>
+          <Text style={styles.text}>
+            {registerFormToggle
+              ? 'Already registered? Login here'
+              : 'No account? Register here.'}
+          </Text>
           <ListItem.Chevron />
-        </ListItem>
+        </TouchableOpacity>
       </ImageBackground>
     </KeyboardAvoidingView>
   );
@@ -105,6 +111,16 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 20,
+    fontWeight: 'bold',
+  },
+  text: {
+    fontSize: 18,
+    padding: 5,
+    textAlign: 'center',
+    color: '#fff',
+  },
+  backgroundColor: {
+    backgroundColor: '#d19836',
   },
 });
 

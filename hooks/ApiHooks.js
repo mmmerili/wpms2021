@@ -34,7 +34,6 @@ const useMedia = (ownFiles) => {
       console.log('loadMedia', e.message);
     }
   };
-
   const loadSingleMedia = async (id) => {
     try {
       const tiedosto = await doFetch(baseUrl + 'media/' + id);

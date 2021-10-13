@@ -11,6 +11,9 @@ import {TouchableOpacity} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native';
 import {Rating} from 'react-native-ratings';
+import {Header} from 'react-native/Libraries/NewAppScreen';
+import {Image} from 'react-native';
+import {ImageBackground} from 'react-native';
 
 const ListItem = ({singleMedia, navigation, showButtons}) => {
   const {update, setUpdate} = useContext(MainContext);
@@ -20,75 +23,81 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
   return (
     <ThemeProvider theme={theme}>
       <SafeAreaView style={styles.listitembackground}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('Single', singleMedia);
-          }}
+        <ImageBackground
+          resizeMode="cover"
+          style={styles.image}
+          source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
         >
-          <RNEListItem
-            bottomDivider
-            containerStyle={{backgroundColor: 'rgba(38, 23, 169, 0.7)'}}
-            // onPress={() => {
-            // navigation.navigate('Single', singleMedia);
-            // }}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Single', singleMedia);
+            }}
           >
-            <Avatar
-              size="xlarge"
-              square
-              source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
-            ></Avatar>
-            <RNEListItem.Content>
-              <RNEListItem.Title style={styles.title} h4>
-                {singleMedia.title}
-              </RNEListItem.Title>
-              <RNEListItem.Subtitle>
-                {singleMedia.description}
-              </RNEListItem.Subtitle>
-              <Rating
-                backgroundColor="rgba(76, 20, 9, 0.27)"
-                type="custom"
-                ratingColor="purple"
-                ratingCount={3}
-                imageSize={40}
-                showRating
-                // onFinishRating={this.ratingCompleted}
-                fractions="{1}"
-                startingValue="{1}"
-                tintColor="rgba(104, 93, 208, 0.59)"
-                color="white"
-              />
-              {showButtons && (
-                <>
-                  <Button
-                    title="Modify"
-                    onPress={() => {
-                      navigation.navigate('Modify', {singleMedia, navigation});
+            <RNEListItem
+              bottomDivider
+              containerStyle={{backgroundColor: 'rgba(46, 60, 171, 0.2)'}} // onPress={() => {
+              // navigation.navigate('Single', singleMedia);
+              // }}
+            >
+              <RNEListItem.Content>
+                <View style={styles.listitem}>
+                  <View
+                    style={{
+                      backgroundColor: '#7666bd',
+                      flex: 0.75,
+                      padding: 20,
+                      borderRadius: 15,
+                      flexDirection: 'column',
+                      alignItems: 'center',
                     }}
-                  />
-                  <Button
-                    title="Delete"
-                    onPress={async () => {
-                      try {
-                        const token = await AsyncStorage.getItem('userToken');
-                        const response = await deleteMedia(
-                          singleMedia.file_id,
-                          token
-                        );
-                        console.log('Delete', response);
-                        if (response.message) {
-                          setUpdate(update + 1);
+                  >
+                    <RNEListItem.Title
+                      style={{fontSize: 60, fontWeight: 'bold', color: 'white'}}
+                      h4
+                    >
+                      {singleMedia.title}
+                    </RNEListItem.Title>
+                    <RNEListItem.Subtitle style={{color: 'white'}}>
+                      {singleMedia.description}
+                    </RNEListItem.Subtitle>
+                  </View>
+                </View>
+                {showButtons && (
+                  <>
+                    <Button
+                      title="Modify"
+                      onPress={() => {
+                        navigation.navigate('Modify', {
+                          singleMedia,
+                          navigation,
+                        });
+                      }}
+                    />
+                    <Button
+                      title="Delete"
+                      onPress={async () => {
+                        try {
+                          const token = await AsyncStorage.getItem('userToken');
+                          const response = await deleteMedia(
+                            singleMedia.file_id,
+                            token
+                          );
+                          console.log('Delete', response);
+                          if (response.message) {
+                            setUpdate(update + 1);
+                          }
+                        } catch (e) {
+                          console.log('ListItem, delete: ', e.message);
                         }
-                      } catch (e) {
-                        console.log('ListItem, delete: ', e.message);
-                      }
-                    }}
-                  />
-                </>
-              )}
-            </RNEListItem.Content>
-            <RNEListItem.Chevron />
-          </RNEListItem>
-        </TouchableOpacity>
+                      }}
+                    />
+                  </>
+                )}
+              </RNEListItem.Content>
+              <RNEListItem.Chevron />
+            </RNEListItem>
+          </TouchableOpacity>
+        </ImageBackground>
       </SafeAreaView>
     </ThemeProvider>
   );
@@ -96,11 +105,20 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
 
 const styles = StyleSheet.create({
   listitembackground: {
-    backgroundColor: 'rgba(104, 93, 208, 0.59)',
+    backgroundColor: 'rgba(104, 93, 208, 0.0)',
+    flexDirection: 'column',
   },
   title: {
     fontSize: 100,
     color: 'white',
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  listitem: {
+    padding: 0,
+    flexDirection: 'row',
   },
 });
 

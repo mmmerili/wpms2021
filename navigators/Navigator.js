@@ -13,10 +13,12 @@ import {Icon} from 'react-native-elements';
 import Upload from '../views/Upload';
 import MyFiles from '../views/MyFiles';
 import Modify from '../views/Modify';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {TouchableOpacity, View} from 'react-native';
+import {Avatar} from 'react-native-elements/dist/avatar/Avatar';
 // import {Text} from 'react-native-elements';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const TabScreen = () => {
@@ -25,10 +27,10 @@ const TabScreen = () => {
       size="xlarge"
       barStyle={{backgroundColor: 'rgb(104, 93, 208)'}}
       screenOptions={({route}) => ({
-        tabBarIcon: ({color, size}) => {
+        tabBarIcon: ({focused, tintColor}) => {
           let iconName = '';
           switch (route.name) {
-            case 'Home':
+            case 'Posts':
               iconName = 'liquor';
               break;
             case 'Profile':
@@ -40,17 +42,20 @@ const TabScreen = () => {
           }
           return (
             <Icon
+              focused={focused}
+              tintColor={{tintColor}}
               name={iconName}
               size={35}
-              color={'rgb(104, 93, 208)'}
-              reverse={true}
+              color={'purple'}
+              reverse={false}
               raised={true}
+              style={{color: 'red'}}
             />
           );
         },
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Posts" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Upload" component={Upload} />
     </Tab.Navigator>
