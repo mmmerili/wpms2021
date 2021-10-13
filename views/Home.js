@@ -20,24 +20,6 @@ const Home = ({navigation}) => {
       style={[styles.droidSafeArea, {backgroundColor: theme.backgroundColor}]}
     >
       <StatusBar style="auto" />
-      <Search
-        name="Search"
-        component={Search}
-        options={{
-          headerShown: true,
-        }}
-      ></Search>
-      <Text
-        style={{
-          fontSize: 25,
-          color: 'white',
-          margin: 20,
-          alignSelf: 'center',
-          fontFamily: 'Baskerville-SemiBold',
-        }}
-      >
-        Post here your favorite drinks and experiences!
-      </Text>
       <View style={[{backgroundColor: theme.backgroundColor}]}>
         <List navigation={navigation} />
       </View>

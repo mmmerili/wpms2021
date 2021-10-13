@@ -100,7 +100,7 @@ const Upload = ({navigation}) => {
   };
 
   return (
-    <View style={{backgroundColor: theme.backgroundColor}}>
+    <View style={{backgroundColor: theme.backgroundColor, flex: 1}}>
       <Image source={image} style={{width: '100%', height: 300}} />
       <TouchableOpacity
         onPress={pickImage}
@@ -110,7 +110,6 @@ const Upload = ({navigation}) => {
         <Text style={styles.selectMediaText}>Select media</Text>
       </TouchableOpacity>
       <UploadForm
-        title="Upload"
         handleSubmit={doUpload}
         handleInputChange={handleInputChange}
         loading={loading}
@@ -145,6 +144,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 20,
+    fontFamily: 'Baskerville-SemiBold',
   },
 });
 

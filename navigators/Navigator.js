@@ -46,7 +46,7 @@ const TabScreen = () => {
               tintColor={{tintColor}}
               name={iconName}
               size={35}
-              color={'purple'}
+              color={'rgba(68, 43, 195, 0.9)'}
               reverse={false}
               raised={true}
               style={{color: 'red'}}

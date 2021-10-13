@@ -14,6 +14,7 @@ import {Rating} from 'react-native-ratings';
 import {Header} from 'react-native/Libraries/NewAppScreen';
 import {Image} from 'react-native';
 import {ImageBackground} from 'react-native';
+import Search from '../views/Search';
 
 const ListItem = ({singleMedia, navigation, showButtons}) => {
   const {update, setUpdate} = useContext(MainContext);
@@ -43,23 +44,25 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
                 <View style={styles.listitem}>
                   <View
                     style={{
-                      backgroundColor: '#7666bd',
-                      flex: 0.75,
-                      padding: 20,
+                      backgroundColor: 'rgba(83, 99, 236, 0.86)',
+                      flex: 0.5,
+                      padding: 70,
                       borderRadius: 15,
                       flexDirection: 'column',
                       alignItems: 'center',
                     }}
                   >
                     <RNEListItem.Title
-                      style={{fontSize: 60, fontWeight: 'bold', color: 'white'}}
+                      style={{
+                        fontSize: 60,
+                        fontWeight: 'bold',
+                        color: 'white',
+                        fontFamily: 'Baskerville-SemiBold',
+                      }}
                       h4
                     >
                       {singleMedia.title}
                     </RNEListItem.Title>
-                    <RNEListItem.Subtitle style={{color: 'white'}}>
-                      {singleMedia.description}
-                    </RNEListItem.Subtitle>
                   </View>
                 </View>
                 {showButtons && (

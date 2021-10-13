@@ -35,9 +35,11 @@ const Single = ({route}) => {
   }, []);
 
   return (
-    <View style={{backgroundColor: theme.backgroundColor}}>
+    <View style={{backgroundColor: theme.backgroundColor, flex: 1}}>
       <Card>
-        <Card.Title h4>{params.title}</Card.Title>
+        <Card.Title style={{fontFamily: 'Baskerville-SemiBold'}} h4>
+          {params.title}
+        </Card.Title>
         <Card.Title>
           {
             /* TODO: crashes in android with latest Expo GO -> fix
@@ -73,10 +75,21 @@ const Single = ({route}) => {
           </>
         )}
         <Card.Divider />
-        <Text style={styles.description}>{params.description}</Text>
-        <ListItem>
-          <Text>{ownerInfo.username}'s post</Text>
-        </ListItem>
+        <View style={{alignItems: 'center'}}>
+          <Text
+            style={
+              ([styles.description],
+              {fontFamily: 'Baskerville-SemiBold', fontSize: 20})
+            }
+          >
+            {params.description}
+          </Text>
+          <ListItem>
+            <Text style={{fontFamily: 'Baskerville-SemiBold', fontSize: 20}}>
+              {ownerInfo.username}'s post
+            </Text>
+          </ListItem>
+        </View>
         <ListItem>
           {/* TODO: show like or dislike button depending on the current like status,
         calculate like count for a file */}

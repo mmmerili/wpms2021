@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 20,
+    fontFamily: 'Baskerville-SemiBold',
   },
 });
 
