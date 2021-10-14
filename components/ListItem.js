@@ -41,12 +41,17 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
               // }}
             >
               <RNEListItem.Content>
-                <View style={styles.listitem}>
+                <View
+                  style={
+                    ([styles.listitem],
+                    {paddingLeft: 0, paddingBottom: 0, paddingTop: 150})
+                  }
+                >
                   <View
                     style={{
                       backgroundColor: 'rgba(83, 99, 236, 0.86)',
                       flex: 0.5,
-                      padding: 70,
+                      padding: 20,
                       borderRadius: 15,
                       flexDirection: 'column',
                       alignItems: 'center',

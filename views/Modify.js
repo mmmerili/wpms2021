@@ -56,10 +56,9 @@ const Modify = ({route}) => {
   };
 
   return (
-    <View
-      style={[StyleSheet.container, {backgroundColor: theme.backgroundColor}]}
-    >
+    <View style={[StyleSheet.container, {backgroundColor: '#b496d4', flex: 1}]}>
       <UploadForm
+        style={{color: 'white'}}
         title="Upload"
         handleSubmit={doModify}
         handleInputChange={handleInputChange}

@@ -16,11 +16,15 @@ const UploadForm = ({
       <Input
         autoCapitalize="none"
         placeholder="title"
+        placeholderTextColor="white"
+        style={{color: 'white'}}
         onChangeText={(txt) => handleInputChange('title', txt)}
         value={inputs.title}
       />
       <Input
         autoCapitalize="none"
+        placeholderTextColor="white"
+        style={{color: 'white'}}
         placeholder="description"
         onChangeText={(txt) => handleInputChange('description', txt)}
         value={inputs.description}

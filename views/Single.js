@@ -8,15 +8,18 @@ import {Video, Audio} from 'expo-av';
 import {useUser} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useTheme} from '../contexts/ThemeProvider';
+import {TouchableOpacity, Alert} from 'react-native';
 
 const Single = ({route}) => {
   const {theme} = useTheme();
   const {params} = route;
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
-  const [likes, setLikes] = useState([]);
+  const [likes, setLikes] = useState(0);
   const [iAmLikingIt, setIAmLikingIt] = useState(false);
   const videoRef = useRef(null);
+
+  const onPressHandler = (event) => setLikes(likes + 1);
 
   const getOwnerInfo = async () => {
     const token = await AsyncStorage.getItem('userToken');
@@ -90,25 +93,16 @@ const Single = ({route}) => {
             </Text>
           </ListItem>
         </View>
-        <ListItem>
-          {/* TODO: show like or dislike button depending on the current like status,
-        calculate like count for a file */}
-          {iAmLikingIt ? (
-            <Button
-              title="Like"
-              onPress={() => {
-                // use api hooks to POST a favourite
-              }}
-            />
-          ) : (
-            <Button
-              title="Unlike"
-              onPress={() => {
-                // use api hooks to DELETE a favourite
-              }}
-            />
-          )}
-          <Text>Total likes: {likes.length}</Text>
+        <ListItem style={{alignItems: 'center'}}>
+          <TouchableOpacity
+            style={[styles.selectMediaButton]}
+            raised
+            title="like"
+            onPress={onPressHandler}
+          >
+            <Text style={styles.selectMediaText}>Like</Text>
+          </TouchableOpacity>
+          <Text>{likes}</Text>
         </ListItem>
       </Card>
     </View>
@@ -123,6 +117,25 @@ const styles = StyleSheet.create({
   },
   description: {
     marginBottom: 10,
+  },
+  selectMediaButton: {
+    marginRight: 25,
+    marginLeft: 25,
+    marginTop: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
+    backgroundColor: '#d19836',
+    borderRadius: 15,
+    borderWidth: 3,
+    borderColor: '#edcf9d',
+  },
+  selectMediaText: {
+    color: '#fff',
+    textAlign: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontSize: 25,
+    fontFamily: 'Baskerville-SemiBold',
   },
 });
 
